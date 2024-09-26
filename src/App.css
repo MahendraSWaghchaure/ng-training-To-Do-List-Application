@@ -1,0 +1,29 @@
+@import '@salesforce-ux/design-system/assets/styles/salesforce-lightning-design-system.min.css';
+
+body {
+  background-color: #f3f2f2;
+}
+
+.slds-container_center {
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.slds-container_large {
+  max-width: 90rem;
+}
+
+.slds-table {
+  background-color: #ffffff;
+}
+
+.slds-modal__container {
+  max-width: 70rem;
+  width: 90%;
+}
+
+@media (max-width: 48em) {
+  .slds-container_center {
+    padding: 1rem;
+  }
+}
