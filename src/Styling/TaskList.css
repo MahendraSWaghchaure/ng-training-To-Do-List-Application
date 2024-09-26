@@ -1,0 +1,101 @@
+.task-list-container {
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9fafc;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.task-list-controls {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 20px; 
+}
+
+.task-list-filter {
+    margin-bottom: 20px; 
+    flex-grow: 1; 
+}
+
+.task-list-filter select {
+    width: 180px; /* Set width for the filter dropdown */
+    padding: 6px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.task-list-search {
+    flex-grow: 1; 
+    display: flex; 
+    justify-content: flex-end; 
+}
+
+.task-list-search input {
+    width: 180px; /* Match width to filter dropdown */
+    padding: 6px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.task-table-container {
+    overflow-x: auto;
+}
+
+.task-list-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.task-list-table th, 
+.task-list-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.task-list-table th {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.task-list-table th:hover {
+    background-color: #e6e6e6;
+}
+
+.task-list-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.task-list-table td button {
+    padding: 6px 12px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.task-list-table .slds-button_neutral {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.task-list-table .slds-button_destructive {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.task-list-table button:hover {
+    opacity: 0.9;
+}
+
+.pagination-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

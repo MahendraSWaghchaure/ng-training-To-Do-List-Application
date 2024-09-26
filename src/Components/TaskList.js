@@ -1,20 +1,20 @@
 import React, { useState, useMemo } from 'react';
 import DeleteConfirmation from './DeleteConfirmation';
-import Pagination from './Pagination'; // Import the Pagination component
+import Pagination from './Pagination';
+import '../Styling/TaskList.css'; // Import CSS file
 
 function TaskList({ tasks, onDelete, onEdit }) {
-  // State for deletion confirmation and pagination
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const tasksPerPage = 10;
+  const tasksPerPage = 8;
 
-  // State for filtering and sorting
+  // States for sorting, filtering, and search
   const [sortField, setSortField] = useState('dueDate');
   const [sortDirection, setSortDirection] = useState('asc');
   const [filterStatus, setFilterStatus] = useState('All');
+  const [searchQuery, setSearchQuery] = useState(''); // Search query state
 
-  // Handling task deletion
   const handleDelete = (task) => {
     setTaskToDelete(task);
     setShowDeleteConfirmation(true);
@@ -25,7 +25,6 @@ function TaskList({ tasks, onDelete, onEdit }) {
     setShowDeleteConfirmation(false);
   };
 
-  // Handle sorting logic
   const handleSort = (field) => {
     if (field === sortField) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
@@ -35,21 +34,31 @@ function TaskList({ tasks, onDelete, onEdit }) {
     }
   };
 
-  // Filter and sort tasks based on user input
+  // Filter and sort tasks based on user input and search query
   const filteredAndSortedTasks = useMemo(() => {
     let filteredTasks = tasks;
+
+    // Filter by status
     if (filterStatus !== 'All') {
       filteredTasks = tasks.filter(task => task.status === filterStatus);
     }
 
+    // Filter by search query (e.g., search task name, comments, etc.)
+    if (searchQuery) {
+      filteredTasks = filteredTasks.filter(task =>
+        task.assignedTo.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        task.comments.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    // Sort the tasks
     return filteredTasks.sort((a, b) => {
       if (a[sortField] < b[sortField]) return sortDirection === 'asc' ? -1 : 1;
       if (a[sortField] > b[sortField]) return sortDirection === 'asc' ? 1 : -1;
       return 0;
     });
-  }, [tasks, filterStatus, sortField, sortDirection]);
+  }, [tasks, filterStatus, sortField, sortDirection, searchQuery]);
 
-  // Pagination logic
   const indexOfLastTask = currentPage * tasksPerPage;
   const indexOfFirstTask = indexOfLastTask - tasksPerPage;
   const currentTasks = filteredAndSortedTasks.slice(indexOfFirstTask, indexOfLastTask);
@@ -57,41 +66,55 @@ function TaskList({ tasks, onDelete, onEdit }) {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div>
-      {/* Filter dropdown */}
-      <select
-        className="slds-select"
-        value={filterStatus}
-        onChange={(e) => setFilterStatus(e.target.value)}
-        style={{ width: '150px', padding: '4px', fontSize: '12px' }} 
-        >
-        <option value="All">All</option>
-        <option value="Not Started">Not Started</option>
-        <option value="In Progress">In Progress</option>
-        <option value="Completed">Completed</option>
-    </select>
+    <div className="task-list-container">
+      {/* Search and Filter bar */}
+      <div className="task-list-controls">
+        {/* Filter dropdown */}
+        <div className="task-list-filter">
+          <select
+            className="slds-select"
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value)}
+          >
+            <option value="All">All</option>
+            <option value="Not Started">Not Started</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
 
+        {/* Search bar */}
+        <div className="task-list-search">
+          <input
+            type="text"
+            placeholder="Search tasks..."
+            className="slds-input"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+      </div>
 
       {/* Task list table */}
-      <div className="slds-table_bordered slds-table_cell-buffer">
-        <table className="slds-table slds-table_bordered slds-table_cell-buffer">
+      <div className="task-table-container">
+        <table className="task-list-table">
           <thead>
-            <tr className="slds-line-height_reset">
-              <th scope="col"></th>
-              <th scope="col" onClick={() => handleSort('assignedTo')}>
+            <tr>
+              <th></th>
+              <th onClick={() => handleSort('assignedTo')}>
                 Assigned To {sortField === 'assignedTo' && (sortDirection === 'asc' ? '▲' : '▼')}
               </th>
-              <th scope="col" onClick={() => handleSort('status')}>
+              <th onClick={() => handleSort('status')}>
                 Status {sortField === 'status' && (sortDirection === 'asc' ? '▲' : '▼')}
               </th>
-              <th scope="col" onClick={() => handleSort('dueDate')}>
+              <th onClick={() => handleSort('dueDate')}>
                 Due Date {sortField === 'dueDate' && (sortDirection === 'asc' ? '▲' : '▼')}
               </th>
-              <th scope="col" onClick={() => handleSort('priority')}>
+              <th onClick={() => handleSort('priority')}>
                 Priority {sortField === 'priority' && (sortDirection === 'asc' ? '▲' : '▼')}
               </th>
-              <th scope="col">Comments</th>
-              <th scope="col">Actions</th>
+              <th>Comments</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
