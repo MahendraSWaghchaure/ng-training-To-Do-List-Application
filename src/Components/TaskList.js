@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import DeleteConfirmation from './DeleteConfirmation';
 import Pagination from './Pagination';
-import '../Styling/TaskList.css'; // Import CSS file
+import '../Styling/TaskList.css'; 
 
 function TaskList({ tasks, onDelete, onEdit }) {
+  // State to manage the visibility of the delete confirmation modal
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,16 +16,19 @@ function TaskList({ tasks, onDelete, onEdit }) {
   const [filterStatus, setFilterStatus] = useState('All');
   const [searchQuery, setSearchQuery] = useState(''); // Search query state
 
+  // Function to handle task deletion
   const handleDelete = (task) => {
     setTaskToDelete(task);
     setShowDeleteConfirmation(true);
   };
 
+   // Confirm the deletion of the task
   const confirmDelete = () => {
     onDelete(taskToDelete.id);
     setShowDeleteConfirmation(false);
   };
 
+  // Function to handle sorting of tasks
   const handleSort = (field) => {
     if (field === sortField) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
