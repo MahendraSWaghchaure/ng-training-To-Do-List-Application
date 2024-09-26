@@ -8,7 +8,7 @@ function TaskList({ tasks, onDelete, onEdit }) {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const tasksPerPage = 8;
+  const tasksPerPage = 6;
 
   // States for sorting, filtering, and search
   const [sortField, setSortField] = useState('dueDate');
