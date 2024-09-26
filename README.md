@@ -14,6 +14,19 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
+### 'Testing images'
+First page 
+![image](https://github.com/user-attachments/assets/92a16623-2c14-4ca1-9569-dc143c70b607)
+
+While adding task
+![image](https://github.com/user-attachments/assets/088e3a7a-0a52-4b3a-a3e2-306011aeb147)
+
+After task add
+![image](https://github.com/user-attachments/assets/85bdba96-2d9b-47e0-95e7-022a71d1fa7f)
+
+Confirmation while deleting task
+![image](https://github.com/user-attachments/assets/76909233-61c2-4bdf-9e40-4af0ed7948fd)
+
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
